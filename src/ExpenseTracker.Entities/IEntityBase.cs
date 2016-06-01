@@ -6,6 +6,6 @@ namespace ExpenseTracker.Entities
     {
         int ID { get; set; }
         DateTime CreatedDate { get; set; }
-        DateTime CreatedBy { get; set; }
+        string CreatedBy { get; set; }
     }
 }

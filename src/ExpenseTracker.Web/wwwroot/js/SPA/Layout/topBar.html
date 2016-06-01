@@ -1,0 +1,40 @@
+﻿<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="#/">Expense Tracker</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu">Expenses <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="admin-menu">
+                        <li><a ng-href="#/ExpenseEntry/">Daily Expense</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu">MasterData Setup <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="admin-menu">
+                        <li><a ng-href="#/Users/">Accout Managment</a></li>
+                        <li><a ng-href="#/billers/">Biller</a></li>
+                        <li><a ng-href="#/categories/">Category</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="#login" ng-hide="rootCtr.isUserloggedIn()">Login <i class="glyphicon glyphicon-log-in"></i></a></li>
+                <li><a href="#logout" ng-show="rootCtr.isUserloggedIn()" ng-click="rootCtr.logout()">Logout <i class="glyphicon glyphicon-log-out"></i></a></li>
+                <li><a href="#about">About <i class="glyphicon glyphicon-info-sign"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-if="rootCtr.isUserloggedIn()">
+                <li class="userinfo"><a href="#/">{{rootCtr.userData.userName}} <i class="glyphicon glyphicon-user"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

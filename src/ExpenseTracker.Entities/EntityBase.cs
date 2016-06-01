@@ -7,7 +7,7 @@ namespace ExpenseTracker.Entities
 {
     public abstract class EntityBase : IEntityBase
     {
-        public DateTime CreatedBy
+        public string CreatedBy
         {
             get;
             set;

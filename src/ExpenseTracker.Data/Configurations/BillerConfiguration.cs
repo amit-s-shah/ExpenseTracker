@@ -1,6 +1,6 @@
 ﻿using ExpenseTracker.Entities;
-using Microsoft.Data.Entity.Metadata.Builders;
-using Microsoft.Data.Entity.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ExpenseTracker.Data.Configurations
 {

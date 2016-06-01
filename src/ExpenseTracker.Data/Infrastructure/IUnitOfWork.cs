@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Data.Infrastructure
+﻿namespace ExpenseTracker.Data.Infrastructure
 {
-    interface IUnitOfWork
+    public interface IUnitofWork
     {
         void Commit();
     }

@@ -1,0 +1,29 @@
+﻿<div layout="row" layout-margin ng-cloak>
+    <md-whiteframe class="md-whiteframe-5dp" flex>
+        <!--<div class="panel-body">-->
+        <div layout="column">
+            <md-subheader class="md-primary">
+                <h3>Login</h3>
+            </md-subheader>
+            <form flex-offset="5">
+                <div layout-gt-sm="row">
+                    <md-input-container>
+                        <label>user name</label>
+                        <input ng-model="loginCtrl.user.userName" type="text" md-autofocus>
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container>
+                        <label>Password</label>
+                        <input ng-model="loginCtrl.user.password" type="password">
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-sm="column">
+                    <md-button class="md-raised" ng-click="loginCtrl.login()">login</md-button>
+                    <md-button class="md-raised" ng-href="#/Registration">User Registration</md-button>
+                </div>
+            </form>
+        </div>
+    </md-whiteframe>
+</div>
+

@@ -1,0 +1,21 @@
+﻿<div class="panel panel-default panel-primary">
+    <div class="panel-heading">Add new Biller</div>
+    <div class="panel-body">
+        <form role="form">
+            <div class="form-group">
+                <label class="control-label" for="billerName">Name</label>
+                <input type="text" ng-model="newBiller.name" class="form-control" id="billerName">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="billerAddress">Address</label>
+                <input type="text" ng-model="newBiller.address" class="form-control" id="billerAddress">
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer clearfix">
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" ng-click="addBiller()">Save</button>
+            <button type="button" class="btn btn-default btn-danger" ng-click="cancelAddBiller()">Cancel</button>
+        </div>
+    </div>
+</div>

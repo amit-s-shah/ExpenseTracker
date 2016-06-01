@@ -1,12 +1,10 @@
 ﻿using ExpenseTracker.Data.Infrastructure;
 using ExpenseTracker.Entities;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace ExpenseTracker.Data.Repositories
 {

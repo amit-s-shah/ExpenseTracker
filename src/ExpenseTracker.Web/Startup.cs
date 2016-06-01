@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Data.Entity;
+﻿using Autofac;
+using ExpenseTracker.Data;
+using ExpenseTracker.Data.Extensions;
+using ExpenseTracker.Entities;
+using ExpenseTracker.Web.Infrastructure.Mappings;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ExpenseTracker.Web.Models;
-using ExpenseTracker.Web.Services;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.IO;
 
 namespace ExpenseTracker.Web
 {
@@ -21,6 +26,7 @@ namespace ExpenseTracker.Web
             // Set up configuration sources.
 
             var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
@@ -40,25 +46,33 @@ namespace ExpenseTracker.Web
         public IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddDbContext<ExpenseTrackerContext>(options =>
+                                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"], op => op.MigrationsAssembly("ExpenseTracker.Web")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            var defaultPolicy = new AuthorizationPolicyBuilder()
+                                    .RequireAuthenticatedUser()
+                                    .Build();
 
-            services.AddMvc();
+            services.//AddMvc()
+                AddMvc(setup => setup.Filters.Add(new AuthorizeFilter(defaultPolicy)))
+                    .AddJsonOptions(opts => opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddAuthorization(
+                opts => {
+                    opts.AddPolicy("Name", policy => policy.RequireClaim(System.Security.Claims.ClaimTypes.Name));
+                }
+            );
+            services.AddAuthentication(opts => opts.SignInScheme = "ExpenseTrackerAuthKey");
+
+            AutoMapperConfiguration.Configure();
+
+            return AutofacWebapiConfig.Initialize(services).Resolve<IServiceProvider>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,36 +83,57 @@ namespace ExpenseTracker.Web
 
             app.UseApplicationInsightsRequestTelemetry();
 
-            if (env.IsDevelopment())
+            if (env.IsDevelopment()) // use below Middlewares
             {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    serviceScope.ServiceProvider.GetService<ExpenseTrackerContext>().EnsureSeedData();
+                }
             }
-            else
+            else // in prod env use below Middlewares
             {
                 app.UseExceptionHandler("/Home/Error");
 
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                try
-                {
-                    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                        .CreateScope())
-                    {
-                        serviceScope.ServiceProvider.GetService<ApplicationDbContext>()
-                             .Database.Migrate();
-                    }
-                }
-                catch { }
+                //// For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
+                //try
+                //{
+                //    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                //        .CreateScope())
+                //    {
+                //        serviceScope.ServiceProvider.GetService<ExpenseTracker.Data.ExpenseTrackerContext>()
+                //             .Database.Migrate();
+                //    }
+                //}
+                //catch { }
             }
 
-            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
+            //app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            var authenticationOptions = new CookieAuthenticationOptions()
+            {
+                AuthenticationScheme = "ExpenseTrackerAuthKey",
+                CookieName = "ApplicationCookie",
+                AutomaticAuthenticate = true
+                //AutomaticChallenge = true,
+            };
+
+            authenticationOptions.Events = new CookieAuthenticationEvents()
+            {
+                OnValidatePrincipal = Infrastructure.ValidateCookiePrincipal.ValidateAsync
+
+            };
+
+            app.UseCookieAuthentication(authenticationOptions);
+
+            //app.UseIdentity();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
@@ -111,6 +146,15 @@ namespace ExpenseTracker.Web
         }
 
         // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        public static void Main(string[] args)
+        {
+            var host = new WebHostBuilder()
+                                .UseKestrel()
+                                .UseContentRoot(Directory.GetCurrentDirectory())
+                                .UseIISIntegration()
+                                .UseStartup<Startup>()
+                                .Build();
+            host.Run();
+        }
     }
 }

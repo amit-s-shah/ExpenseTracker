@@ -1,0 +1,34 @@
+﻿<div layout="row" layout-margin ng-cloak>
+    <md-whiteframe class="md-whiteframe-5dp" flex>
+        <div layout="column">
+            <section>
+                <md-subheader class="md-primary"><h3>User Registration</h3></md-subheader>
+                <md-content flex-offset="5" layout-padding>
+                    <form>
+                        <div layout-gt-sm="row">
+                            <md-input-container>
+                                <label>user name</label>
+                                <input ng-model="regCtrl.user.username" md-autofocus>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container>
+                                <label>Email</label>
+                                <input ng-model="regCtrl.user.email">
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <md-input-container>
+                                <label>Password</label>
+                                <input ng-model="loginCtrl.user.password" type="password">
+                            </md-input-container>
+                        </div>
+                        <div layout="row" layout-sm="column">
+                            <md-button class="md-raised" ng-click="regCtrl.register()">Register</md-button>
+                        </div>
+                    </form>
+                </md-content>
+            </section>
+        </div>
+    </md-whiteframe>
+</div>

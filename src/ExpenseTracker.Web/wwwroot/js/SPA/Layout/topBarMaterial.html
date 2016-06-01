@@ -1,0 +1,31 @@
+﻿<md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools">
+        <h2 flex="20">
+            <a ng-href="#/">
+                <span class="md-title">Expense Tracker</span>
+            </a>
+        </h2>
+        <md-menu hide show-gt-md>
+            <md-button class="md-button" ng-click="$mdOpenMenu()">
+                Master Data Setup
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-href="#/billers/">
+                        Biller
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button ng-href="#/categories/">
+                        Category
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <span flex></span>
+        <md-button ng-href="#login" ng-hide="rootCtr.isUserloggedIn()">Login</md-button>
+        <md-button ng-href="#logout" ng-show="rootCtr.isUserloggedIn()" ng-click="rootCtr.logout()">Logout</md-button>
+        <md-button ng-href="#about">About</md-button>
+    </div>
+</md-toolbar>
