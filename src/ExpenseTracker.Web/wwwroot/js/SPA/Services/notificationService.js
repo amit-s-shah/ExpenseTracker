@@ -34,7 +34,7 @@
                 $mdToast.simple()
                 .textContent(message)
                 .capsule(true)
-                .hideDelay(30000)
+                .hideDelay(3000)
                 .position('bottom right')
                 .theme('errorTheme')
             );
@@ -52,10 +52,24 @@
 
         function displayWarning(message) {
             //toastr.warning(message);
+            $mdToast.show(
+                $mdToast.simple()
+                .textContent(message)
+                .capsule(true)
+                .hideDelay(3000)
+                .position('bottom right')
+            );
         }
 
         function displayInfo(message) {
             //toastr.info(message);
+            $mdToast.show(
+                $mdToast.simple()
+                .textContent(message)
+                .capsule(true)
+                .hideDelay(3000)
+                .position('bottom right')
+            );
         }
 
     }

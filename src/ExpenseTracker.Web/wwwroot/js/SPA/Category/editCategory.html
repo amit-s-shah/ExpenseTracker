@@ -1,21 +1,23 @@
-﻿<div class="panel panel-default panel-primary">
-    <div class="panel-heading">Edit <strong>{{editCtr.selectedCategory.name}} </strong></div>
-    <div class="panel-body">
-        <form role="form">
-            <div class="form-group">
-                <label class="control-label" for="Name">Name</label>
-                <input type="text" ng-model="editCtr.selectedCategory.name" class="form-control" id="Name">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="Description">Description</label>
-                <input type="text" ng-model="editCtr.selectedCategory.description" class="form-control" id="Description">
-            </div>
-        </form>
-    </div>
-    <div class="panel-footer clearfix">
-        <div class="pull-right">
-            <button type="button" class="btn btn-default" ng-click="editCtr.saveCategory()">Save</button>
-            <button type="button" class="btn btn-default btn-danger" ng-click="editCtr.cancelSaveCategory()">Cancel</button>
-        </div>
-    </div>
+﻿<div layout="row" layout-padding>
+    <md-card>
+        <md-card-header>
+            <md-card-header-text>
+                <span>Edit {{editCtr.selectedCategory.name}}</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <form role="form">
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Name" ng-model="editCtr.selectedCategory.name" md-autofocus >
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Address" ng-model="editCtr.selectedCategory.description" >
+                </md-input-container>
+            </form>
+        </md-card-content>
+        <md-card-actions layout="row">
+            <md-button ng-click="editCtr.saveCategory()" aria-label="Add new Biller">Save</md-button>
+            <md-button ng-click="editCtr.cancelSaveCategory()" aria-label="Cancel">Cancel</md-button>
+        </md-card-actions>
+    </md-card>
 </div>

@@ -1,21 +1,23 @@
-﻿<div class="panel panel-default panel-primary">
-    <div class="panel-heading">Add new Category</div>
-    <div class="panel-body">
-        <form role="form">
-            <div class="form-group">
-                <label class="control-label" for="categoryName">Name</label>
-                <input type="text" ng-model="addCtr.newCategory.name" class="form-control" id="categoryName">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="categoryDescription">Description</label>
-                <input type="text" ng-model="addCtr.newCategory.description" class="form-control" id="categoryDescription">
-            </div>
-        </form>
-    </div>
-    <div class="panel-footer clearfix">
-        <div class="pull-right">
-            <button type="button" class="btn btn-default" ng-click="addCtr.addCategory()">Save</button>
-            <button type="button" class="btn btn-default btn-danger" ng-click="addCtr.cancelAddCategory()">Cancel</button>
-        </div>
-    </div>
+﻿<div layout="row" layout-padding flex>
+    <md-card>
+        <md-card-header>
+            <md-card-header-text>
+                <span>Add New Category</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <form role="form">
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Name" ng-model="addCtr.newCategory.name" md-autofocus>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Description" ng-model="addCtr.newCategory.description">
+                </md-input-container>
+            </form>
+        </md-card-content>
+        <md-card-actions layout="row">
+            <md-button ng-click="addCtr.addCategory()" aria-label="Add new Biller">Save</md-button>
+            <md-button ng-click="addCtr.cancelAddCategory()" aria-label="Cancel">Cancel</md-button>
+        </md-card-actions>
+    </md-card>
 </div>

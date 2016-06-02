@@ -4,7 +4,7 @@
   "dependencies": {
     "bootstrap": "3.3.6",
     "jquery": "2.1.4",
-    "jquery-validation": "1.14.0",
+    "jquery-validation": "1.15.0",
     "jquery-validation-unobtrusive": "3.2.4",
     "angular": "1.5.5",
     "angular-route": "1.5.5",
@@ -12,9 +12,11 @@
     "angular-base64": "2.0.5",
     "angular-ui-grid": "3.1.1",
     "angular-animate": "*",
-    "angular-material": "1.0.9"
+    "angular-material": "1.0.9",
+    "font-awesome": "4.6.1"
   },
   "resolutions": {
-    "angular": "1.5.5"
+    "angular": "1.5.5",
+    "jquery-validation": "1.15.0"
   }
 }

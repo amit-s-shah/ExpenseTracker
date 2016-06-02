@@ -4,29 +4,28 @@
     module
         .controller('billerEditCtrl', billerEditCtrl);
 
-    billerEditCtrl.$inject = ['$scope', '$uibModalInstance', '$timeout', 'apiService', 'notificationService'];
+    billerEditCtrl.$inject = ['$mdDialog', 'apiService', 'notificationService'];
 
-    function billerEditCtrl($scope, $uibModalInstance, $timeout, apiService, notificationService) {
-
-        $scope.UpdateBiller = UpdateBiller;
-        $scope.CancelUpdateBiller = CancelUpdateBiller;
+    function billerEditCtrl($mdDialog, apiService, notificationService) {
+        var _this = this;
+        _this.UpdateBiller = UpdateBiller;
+        _this.CancelUpdateBiller = CancelUpdateBiller;
 
         function UpdateBiller() {
-            //console.log($scope.selectedBiller);
-            apiService.postData('/Biller/Update/', $scope.selectedBiller,
+            //console.log(_this.selectedBiller);
+            apiService.postData('/Biller/Update/', _this.selectedBiller,
             updateBillerCompleted,
             updateBillerLoadFailed);
         }
 
         function CancelUpdateBiller() {
-            $scope.isEnabled = false;
-            $uibModalInstance.dismiss();
+            $mdDialog.cancel();
         }
 
         function updateBillerCompleted(response) {
-            notificationService.displaySuccess($scope.selectedBiller.name + ' has been updated');
-            $scope.selectedBiller = {};
-            $uibModalInstance.close();
+            notificationService.displaySuccess(_this.selectedBiller.name + ' has been updated');
+            _this.selectedBiller = {};
+            $mdDialog.hide();
         }
 
         function updateBillerLoadFailed(response) {

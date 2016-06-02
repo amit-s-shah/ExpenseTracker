@@ -1,40 +1,41 @@
-﻿<div class="row">
-    <div class="panel panel-primary">
-        <div class="panel-heading clearfix">
-            <h4 class="panel-title pull-left">Categories</h4>
-            <br />
-            <div class="input-group">
-                <input id="inputSearch" type="search" ng-model="categoryCtrl.filterCategory"
-                       class="form-control" placeholder="Filter, search Categories..">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" ng-click="categoryCtrl.search();" title="Search categories"><i class="glyphicon glyphicon-search"></i></button>
-                    <button class="btn btn-default" ng-click="categoryCtrl.clearSearch();" title="Clear Search"><i class="glyphicon glyphicon-refresh"></i></button>
-                    <button class="btn btn-default" ng-click="categoryCtrl.openAddDialog()" title="Add New Category"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                    <button class="btn btn-default btn-danger" ng-hide="categoryCtrl.anythingSelectedForDelete()"
-                            ng-click="categoryCtrl.openDeleteDialog()" title="Delete selected Categories">
-                        <i class="glyphicon glyphicon-remove-circle"></i>
-                    </button>
-                </div>
-            </div>
+﻿<div layout="row" layout-margin ng-cloak>
+    <md-whiteframe class="md-whiteframe-5dp" flex>
+        <div layout="column" class="md-warn">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Categories</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row">
+                    <md-input-container md-no-float class="md-block">
+                        <input type="search" placeholder="Filter, search Categories.." ng-model="categoryCtrl.filterCategory">
+                    </md-input-container>
+                    <md-card-icon-actions layout-align="end center">
+                        <md-button class="md-icon-button" ng-click="categoryCtrl.search();" aria-label="Search"><i class="fa fa-search"></i></md-button>
+                        <md-button class="md-icon-button" ng-click="categoryCtrl.clearSearch();" aria-label="Clear Search"><i class="fa fa-refresh"></i></md-button>
+                        <md-button class="md-icon-button" ng-click="categoryCtrl.openAddDialog($event)" aria-label="Add New Category"><i class="fa fa-plus"></i></md-button>
+                        <md-button class="md-icon-button" ng-click="categoryCtrl.openDeleteDialog($event)" ng-hide="categoryCtrl.anythingSelectedForDelete()" aria-label="Delete Category"><i class="fa fa-remove"></i></md-button>
+                    </md-card-icon-actions>
+                </md-card-actions>
+            </md-card>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="category in categoryCtrl.categories | filter:categoryCtrl.filterCategory">
+                    <md-card flex>
+                        <md-card-content>
+                            <md-checkbox id="chk{{category.id}}" ng-model="category.selected" aria-label="To delete select" flex="60" layout-wrap>
+                                <label for="chk{{category.id}}">
+                                    <strong> {{category.name + " : "}}</strong><i>{{category.description}}</></i>
+                                </label>
+                            </md-checkbox>
+                            <md-button class="md-icon-button" ng-click="categoryCtrl.openEditDialog(category, $event);"
+                                       aria-label="Edit {{category.name}}">
+                                <i class="fa fa-edit"></i>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                </md-list-item>
+            </md-list>
         </div>
-        <div class="panel-body">
-            <div class="row">
-                <div ng-repeat="category in categoryCtrl.categories | filter:categoryCtrl.filterCategory">
-                    <div class="panel-collapse form-group-sm">
-                        <div class="col-md-10">
-                            <input id="chk{{category.id}}"  type="checkbox" ng-model="category.selected" title="Select to delete"/>
-                            <label for="chk{{category.id}}">
-                                <strong>{{category.name}}</strong>  : <i>{{category.description}}</i>
-                            </label>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-default btn-xs" title="Edit {{category.name}}"
-                                    ng-click="categoryCtrl.openEditDialog(category)"><i class="glyphicon glyphicon-edit"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel-footer"></div>
-    </div>
+    </md-whiteframe>
 </div>

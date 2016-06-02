@@ -7,6 +7,19 @@
         </h2>
         <md-menu hide show-gt-md>
             <md-button class="md-button" ng-click="$mdOpenMenu()">
+                Expenses
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ng-href="#/ExpenseEntry/">
+                        Daily Expense
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+            </md-menu-content>
+        </md-menu>
+        <md-menu hide show-gt-md>
+            <md-button class="md-button" ng-click="$mdOpenMenu()">
                 Master Data Setup
             </md-button>
             <md-menu-content width="4">

@@ -39,7 +39,7 @@
         })
         .when("/ExpenseEntry/",
         {
-            templateUrl: "js/spa/Expense/expenses.html",
+            templateUrl: "js/spa/Expense/Addexpenses.html",
             //templateUrl: "js/spa/Expense/AddExpenses.html",
             controller: "expenseEntryCtrl",
             controllerAs: "expenseCtrl",

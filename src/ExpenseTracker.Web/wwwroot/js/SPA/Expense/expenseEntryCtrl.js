@@ -1,8 +1,8 @@
 ﻿(function (module)
 {
     module.controller('expenseEntryCtrl', expenseEntryCtrl);
-    expenseEntryCtrl.$inject = ['paymentMethods', 'categories', 'billers', 'expenseService', 'notificationService'];
-    function expenseEntryCtrl(paymentMethods, categories, billers, expenseService, notificationService) {
+    expenseEntryCtrl.$inject = ['paymentMethods', 'categories', 'billers', 'expenseService', 'notificationService', '$filter'];
+    function expenseEntryCtrl(paymentMethods, categories, billers, expenseService, notificationService, $filter) {
         var _this = this;
         _this.categories = categories.data;
         _this.paymentMethods = paymentMethods.data;
@@ -10,7 +10,8 @@
         _this.expenses = [];
         _this.expense = {};
         _this.expense.purchaseddate = new Date();
-
+        _this.querySearchBiller = querySearchBiller;
+        _this.querySearchCategory = querySearchCategory;
         _this.reset = reset;
 
         function reset() {
@@ -44,6 +45,23 @@
 
         function failure(error) {
             notificationService.displayError(error.data);
+        }
+
+        function querySearchBiller(query) {
+            var result = query ? _this.billers.filter(createFilterFor(query)) : _this.billers;
+            return result;
+        }
+
+        function querySearchCategory(query) {
+            var result = query ? _this.categories.filter(createFilterFor(query)) : _this.categories, deferred;
+            return result;
+        }
+
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(item) {
+                return (angular.lowercase((item.name || '') + (item.address || '') + (item.description || '')).indexOf(lowercaseQuery) > -1);
+            };
         }
 
         getExpenses();

@@ -4,9 +4,9 @@
     module
        .controller('indexCategoryCtrl', indexCategoryCtrl);
 
-    indexCategoryCtrl.$inject = ['$modal', 'apiService', 'notificationService', '$filter'];
+    indexCategoryCtrl.$inject = ['$mdDialog', 'apiService', 'notificationService', '$filter'];
 
-    function indexCategoryCtrl($modal, apiService, notificationService, $filter) {
+    function indexCategoryCtrl($mdDialog, apiService, notificationService, $filter) {
 
         var _this = this;
         _this.categories = [];
@@ -44,44 +44,74 @@
             search();
         }
 
-        function openEditDialog(category) {
-            $modal.open({
+        function openEditDialog(category, ev) {
+            $mdDialog.show({
                 templateUrl: 'js/spa/category/editCategory.html',
                 controller: 'editCategoryCtrl',
                 controllerAs: 'editCtr',
-                resolve: {
-                    categories: function () { return _this.categories },
-                    selectedCategory: function () { return category }
-                }
-            }).result.then(function () { }, function () { })
+                clickOutsideToClose: true,
+                targetEvent: ev,
+                locals : {
+                    selectedCategory : category
+                },
+                bindToController: true,
+                closeTo: ev.target
+            }).then(function () { }, function () { })
         }
 
-        function openAddDialog() {
-            $modal.open({
+        function openAddDialog(ev) {
+            $mdDialog.show({
                 templateUrl: 'js/spa/category/addCategory.html',
                 controller: 'addCategoryCtrl',
                 controllerAs: 'addCtr',
-                resolve: {
-                    categories: function () { return _this.categories }
-                }
-            }).result.then(function () {
-                //search();
+                clickOutsideToClose: true,
+                targetEvent: ev,
+                closeTo: ev.target
+            }).then(function (newCategory) {
+                _this.categories.push(newCategory);
             }, function () {
 
             });
+
         }
 
-        function openDeleteDialog() {
-            $modal.open({
-                templateUrl: 'js/spa/category/deleteCategory.html',
-                controller: 'deleteCategoryCtrl',
-                controllerAs: 'deleteCtrl',
-                resolve: {
-                    selectedCategories: function () { return $filter('filter')(_this.categories, { selected: true }) }
+        function openDeleteDialog(ev) {
+            var textContent = '';
+            var selectedCategoriesForDelete = $filter('filter')(_this.categories, { selected: true });
+            var arrayMaxIndex = selectedCategoriesForDelete.length - 1;
+            for (var i = 0; i < selectedCategoriesForDelete.length; i++) {
+                if (i == arrayMaxIndex)
+                    textContent = textContent + selectedCategoriesForDelete[i].name;
+                else
+                    textContent = textContent + selectedCategoriesForDelete[i].name + ', ';
+            }
+
+            var confirm = $mdDialog.confirm()
+                          .title('sure , wanna delete following categories?')
+                          .textContent(textContent)
+                          .ariaLabel('Lucky day')
+                          .targetEvent(ev)
+                          .ok('Delete')
+                          .cancel('Cancel');
+            //console.log($scope.billerSelectedForDelete)
+            $mdDialog.show(confirm).then(function () {
+                deleteCategory(selectedCategoriesForDelete);
+                }, function () {
                 }
-            }).result.then(function () {
-                search();
-            }, function () { })
+            );
+        }
+
+        function deleteCategory(selectedCategories) {
+            apiService.postData('category/delete/', selectedCategories, deleteSuccess, deleteFailed);
+        }
+
+        function deleteSuccess(response) {
+            notificationService.displaySuccess('Selected categories are deleted');
+            search();
+        }
+
+        function deleteFailed(error) {
+            notificationService.displayError(error.data);
         }
 
         function anythingSelectedForDelete() {

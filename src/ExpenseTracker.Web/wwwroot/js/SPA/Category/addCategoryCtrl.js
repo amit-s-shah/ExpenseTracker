@@ -4,13 +4,12 @@
     module
         .controller('addCategoryCtrl', addCategoryCtrl);
 
-    addCategoryCtrl.$inject = ['apiService', 'notificationService', '$modalInstance', 'categories'];
+    addCategoryCtrl.$inject = ['apiService', 'notificationService', '$mdDialog'];
 
-    function addCategoryCtrl(apiService, notificationService, $modalInstance, categories) {
+    function addCategoryCtrl(apiService, notificationService, $mdDialog) {
 
         var _this = this;
-
-        _this.categories = categories;
+        _this.newCategory = {};
         _this.addCategory = addCategory;
         _this.cancelAddCategory = cancelAddCategory;
 
@@ -25,9 +24,7 @@
 
             notificationService.displaySuccess(_this.newCategory.name + ' has been added');
             _this.newCategory.id = response.data;
-            _this.categories.push(_this.newCategory);
-            _this.newCategory = {};
-            $modalInstance.close();
+            $mdDialog.hide(_this.newCategory);
         }
 
         function addCategoryFailed(error) {
@@ -36,7 +33,7 @@
 
         function cancelAddCategory() {
             _this.newCategory = {};
-            $modalInstance.dismiss();
+            $mdDialog.cancel();
         }
 
     }

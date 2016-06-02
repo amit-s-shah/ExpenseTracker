@@ -1,21 +1,23 @@
-﻿<div class="panel panel-default panel-primary">
-    <div class="panel-heading">Edit <strong>{{selectedBiller.name}} </strong></div>
-    <div class="panel-body">
-        <form role="form">
-            <div class="form-group">
-                <label class="control-label" for="billerName">Name</label>
-                <input type="text" ng-model="selectedBiller.name" class="form-control" id="billerName">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="billerAddress">Address</label>
-                <input type="text" ng-model="selectedBiller.address" class="form-control" id="billerAddress">
-            </div>
-        </form>
-    </div>
-    <div class="panel-footer clearfix">
-        <div class="pull-right">
-            <button type="button" class="btn btn-default" ng-click="UpdateBiller()">Save</button>
-            <button type="button" class="btn btn-default btn-danger" ng-click="CancelUpdateBiller()">Cancel</button>
-        </div>
-    </div>
+﻿<div layout="row" layout-padding>
+    <md-card>
+        <md-card-header>
+            <md-card-header-text>
+                <span>Edit {{billerCtrl.selectedBiller.name}}</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <form role="form">
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Name" ng-model="billerCtrl.selectedBiller.name" md-autofocus>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="text" placeholder="Address" ng-model="billerCtrl.selectedBiller.address">
+                </md-input-container>
+            </form>
+        </md-card-content>
+        <md-card-actions layout="row">
+            <md-button ng-click="billerCtrl.UpdateBiller()" aria-label="Add new Biller">Save</md-button>
+            <md-button ng-click="billerCtrl.CancelUpdateBiller()" aria-label="Cancel">Cancel</md-button>
+        </md-card-actions>
+    </md-card>
 </div>

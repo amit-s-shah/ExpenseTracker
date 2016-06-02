@@ -1,41 +1,41 @@
-﻿<div class="row">
-    <div class="panel panel-primary">
-        <div class="panel-heading clearfix">
-            <h4 class="panel-title pull-left">Billers</h4>
-            <br />
-            <div class="input-group">
-                <input id="inputSearchBillers" type="search" ng-model="filterBillers"
-                       class="form-control" placeholder="Filter, search Billers..">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" ng-click="search();" title="Search billers"><i class="glyphicon glyphicon-search"></i></button>
-                    <button class="btn btn-default" ng-click="clearSearch();" title="Clear Search"><i class="glyphicon glyphicon-refresh"></i></button>
-                    <button class="btn btn-default" ng-click="openAddDialog()" title="Add New Biller"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                    <button class="btn btn-default btn-danger" ng-hide="anythingSelectedForDelete()" ng-click="openDeleteDialog()" title="Delete Biller"><i class="glyphicon glyphicon-remove-circle"></i></button>
-                </div>
-            </div>
+﻿<div layout="row" layout-margin ng-cloak>
+    <md-whiteframe class="md-whiteframe-5dp" flex>
+        <div layout="column">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Billers</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row">
+                    <md-input-container md-no-float class="md-block">
+                        <input type="search" placeholder="Filter, search Billers.." ng-model="filterBillers">
+                    </md-input-container>
+                    <md-card-icon-actions layout-align="end center">
+                        <md-button class="md-icon-button" ng-click="search();" aria-label="Search"><i class="fa fa-search"></i></md-button>
+                        <md-button class="md-icon-button" ng-click="clearSearch();" aria-label="Clear Search"><i class="fa fa-refresh"></i></md-button>
+                        <md-button class="md-icon-button" ng-click="openAddDialog($event)" aria-label="Add New Biller"><i class="fa fa-plus"></i></md-button>
+                        <md-button class="md-icon-button" ng-click="openDeleteDialog($event)" ng-hide="anythingSelectedForDelete()" aria-label="Delete Biller"><i class="fa fa-remove"></i></md-button>
+                    </md-card-icon-actions>
+                </md-card-actions>
+            </md-card>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="biller in billers | filter:filterBillers">
+                    <md-card flex>
+                        <md-card-content>
+                            <md-checkbox id="chk{{biller.id}}" ng-model="biller.selected" aria-label="To delete select" flex="60" layout-wrap>
+                                <label for="chk{{biller.id}}">
+                                    <strong> {{biller.name}}</strong> <i class="fa fa-location-arrow"></i>  <i>{{biller.address}}</i>
+                                </label>
+                            </md-checkbox>
+                            <md-button class="md-icon-button" ng-click="openEditDialog(biller, $event);"
+                                       aria-label="Edit {{biller.name}}">
+                                <i class="fa fa-edit"></i>
+                            </md-button>
+                        </md-card-content>
+                    </md-card>
+                </md-list-item>
+            </md-list>
         </div>
-        <div class="panel-body">
-            <div class="row">
-                <div ng-repeat="biller in billers | filter:filterBillers">
-                    <div class="panel-collapse form-inline">
-                        <div class="col-md-10">
-                            <input id="chk{{biller.id}}" type="checkbox" ng-model="biller.selected" title="To delete select" />
-                            <label for="chk{{biller.id}}">
-                                <strong>  {{biller.name}}  </strong> located at <i><strong>{{biller.address}}</strong></i>
-                            </label>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-default btn-xs" ng-click="openEditDialog(biller);" 
-                                    title="Edit {{biller.name}}"><i class="glyphicon glyphicon-edit"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel-footer">
-            <div class="text-center">
-                <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="search(page)"></custom-pager>
-            </div>
-        </div>
-    </div>
+    </md-whiteframe>
 </div>

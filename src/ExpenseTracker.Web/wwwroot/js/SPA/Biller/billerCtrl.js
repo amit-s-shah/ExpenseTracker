@@ -4,9 +4,9 @@
     module
         .controller('billerCtrl', billerCtrl);
 
-    billerCtrl.$inject = ['$scope', '$uibModal', 'apiService', 'notificationService', '$filter'];
+    billerCtrl.$inject = ['$scope', '$mdDialog', 'apiService', 'notificationService', '$filter'];
 
-    function billerCtrl($scope, $uibModal, apiService, notificationService, $filter) {
+    function billerCtrl($scope, $mdDialog, apiService, notificationService, $filter) {
 
         $scope.pageClass = 'page-home';
         $scope.loadingBillers = true;
@@ -74,51 +74,88 @@
             $scope.loadingBillers = false;
 
             if ($scope.filterBillers && $scope.filterBillers.length) {
-                notificationService.displayInfo(result.data.Items.length + ' billers found');
+                notificationService.displayInfo(result.data.items.length + ' billers found');
             }
         }
 
-        function openEditDialog(biller) {
+        function openEditDialog(biller, ev) {
             $scope.selectedBiller = biller;
-            $uibModal.open({
+            $mdDialog.show({
                 templateUrl: 'js/spa/Biller/editBillerModal.html',
                 controller: 'billerEditCtrl',
-                scope: $scope
-            }).result.then(function ($scope) {
+                controllerAs: 'billerCtrl',
+                targetEvent: ev,
+                locals: { selectedBiller: biller },
+                bindToController: true,
+                closeTo: ev.target
+            }).then(function () {
                 clearSearch();
             }, function () {
 
             });
         }
 
-        function openAddDialog()
-        {
-            $scope.newBiller = {};
-            $uibModal.open({
+        function openAddDialog(ev) {
+            $mdDialog.show({
                 templateUrl: 'js/spa/Biller/addBillerModal.html',
                 controller: 'billerAddCtrl',
-                scope: $scope
-            });
-        }
-
-        function openDeleteDialog() {
-            $scope.billerSelectedForDelete = $filter('filter')($scope.billers, { selected: true });
-            //console.log($scope.billerSelectedForDelete)
-            $uibModal.open({
-                animation: true,
-                templateUrl: 'js/spa/Biller/deleteBillerModal.html',
-                controller: 'billerDeleteCtrl',
-                scope: $scope
-            }).result.then(function ($scope) {
-                search();
+                controllerAs: 'billerCtrl',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (newBiller) {
+                $scope.billers.push(newBiller);
             }, function () {
 
             });
         }
 
+        function openDeleteDialog(ev) {
+            var textContent = '';
+            $scope.billerSelectedForDelete = $filter('filter')($scope.billers, { selected: true });
+            var arrayMaxIndex = $scope.billerSelectedForDelete.length - 1;
+            for (var i = 0; i < $scope.billerSelectedForDelete.length; i++) {
+                if (i == arrayMaxIndex)
+                    textContent = textContent + $scope.billerSelectedForDelete[i].name;
+                else
+                    textContent = textContent + $scope.billerSelectedForDelete[i].name + ', ';
+            }
+
+            var confirm = $mdDialog.confirm()
+                          .title('sure , wanna delete following billers?')
+                          .textContent(textContent)
+                          .ariaLabel('Lucky day')
+                          .targetEvent(ev)
+                          .ok('Delete')
+                          .cancel('Cancel');
+            //console.log($scope.billerSelectedForDelete)
+            $mdDialog.show(confirm).then(function () {
+                    deleteBiller($scope.billerSelectedForDelete);
+                }, function () {
+                }
+            );
+        }
+
         function anythingSelectedForDelete() {
             var billerSelectedForDelete = $filter('filter')($scope.billers, { selected: true });
             return billerSelectedForDelete == 'undefined' ? 0 : billerSelectedForDelete.length == 0;
+        }
+
+        function deleteBiller(billerSelectedForDelete) {
+
+            apiService.postData('/Biller/Delete/', billerSelectedForDelete,
+                                            deleteBillerCompleted,
+                                            deleteBillerLoadFailed);
+        }
+
+        function deleteBillerCompleted(response) {
+            notificationService.displaySuccess('Selected biller(s) has been deleted');
+            $scope.billerSelectedForDelete = [];
+            search();
+        }
+
+        function deleteBillerLoadFailed(error) {
+            notificationService.displayError(response.data);
         }
 
         search();

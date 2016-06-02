@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Expense Tracker</title>
     @*<link href="~/lib/angular-ui-grid/ui-grid.css" rel="stylesheet" />*@
     <link href="~/lib/angular-material/angular-material.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     @*<environment names="Development">
             <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap1.min.css"
                   asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
@@ -24,8 +25,8 @@
     <top-bar></top-bar>
     @*<side-bar></side-bar>*@
     @*<div flex layout="row" layout-padding>
-        <div layout="column" flex ng-view></div>
-    </div>*@
+            <div layout="column" flex ng-view></div>
+        </div>*@
     <div class="container" layout="row">
         <md-content flex>
             <ng-view>
@@ -56,13 +57,11 @@
         <script src="~/js/spa/biller/billerctrl.js"></script>
         <script src="~/js/spa/biller/billereditctrl.js"></script>
         <script src="~/js/spa/biller/billerAddCtrl.js"></script>
-        <script src="~/js/spa/biller/billerDeleteCtrl.js"></script>
 
         <!-- #region Category -->
         <script src="~/js/spa/Category/IndexCategoryCtrl.js"></script>
         <script src="~/js/spa/Category/addCategoryCtrl.js"></script>
         <script src="~/js/spa/Category/editCategoryCtrl.js"></script>
-        <script src="~/js/spa/Category/deleteCategoryCtrl.js"></script>
         <!-- #endregion -->
         <!-- #region Account managment -->
         <script src="~/js/spa/User/loginCtrl.js"></script>
