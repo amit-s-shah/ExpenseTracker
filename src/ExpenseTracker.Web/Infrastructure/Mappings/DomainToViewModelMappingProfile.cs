@@ -22,7 +22,7 @@ namespace ExpenseTracker.Web.Infrastructure.Mappings
 
             CreateMap<PaymentMethod, PaymentMethodViewModel>()
                 .ForMember(viewModel => viewModel.Id, map => map.MapFrom(m => m.ID))
-                .ForMember(viewModel => viewModel.Value, map => map.MapFrom(m => m.Name));
+                .ForMember(viewModel => viewModel.Name, map => map.MapFrom(m => m.Name));
         }
     }
 

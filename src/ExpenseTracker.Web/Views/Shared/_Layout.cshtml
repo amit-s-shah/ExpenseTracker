@@ -7,6 +7,7 @@
     @*<link href="~/lib/angular-ui-grid/ui-grid.css" rel="stylesheet" />*@
     <link href="~/lib/angular-material/angular-material.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/lib/angular-chart.js/dist/angular-chart.css" rel="stylesheet" />
     @*<environment names="Development">
             <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap1.min.css"
                   asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
@@ -20,6 +21,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    
 </head>
 <body ng-controller="rootCtrl as rootCtr" layout="column">
     <top-bar></top-bar>
@@ -38,36 +40,49 @@
         <p>&copy; 2016 - Expense Tracker</p>
     </div>
     <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="~/lib/angular/angular.js"></script>
-        <script src="~/lib/angular-ui-grid/ui-grid.js"></script>
         <script src="~/lib/angular-route/angular-route.js"></script>
         <script src="~/lib/angular-cookies/angular-cookies.js"></script>
         <script src="~/lib/angular-base64/angular-base64.js"></script>
         <script src="~/lib/angular-aria/angular-aria.js"></script>
         <script src="~/lib/angular-animate/angular-animate.js"></script>
         <script src="~/lib/angular-material/angular-material.js"></script>
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>*@
+        <script src="~/lib/Chart.js/dist/Chart.js"></script>
+        <script src="~/lib/angular-chart.js/dist/angular-chart.js"></script>
+        <!-- #region App level Scripts -->
         <script src="~/js/spa/modules/common.core.js"></script>
         <script src="~/js/spa/modules/common.ui.js"></script>
         <script src="~/js/spa/site.js"></script>
         <script src="~/js/spa/home/rootctrl.js"></script>
+        <script src="~/js/spa/home/homeCtrl.js"></script>
 
+        <!-- #endregion -->
+
+
+        <!-- #region Biller -->
 
         <script src="~/js/spa/biller/billerctrl.js"></script>
         <script src="~/js/spa/biller/billereditctrl.js"></script>
         <script src="~/js/spa/biller/billerAddCtrl.js"></script>
+
+        <!-- #endregion -->
 
         <!-- #region Category -->
         <script src="~/js/spa/Category/IndexCategoryCtrl.js"></script>
         <script src="~/js/spa/Category/addCategoryCtrl.js"></script>
         <script src="~/js/spa/Category/editCategoryCtrl.js"></script>
         <!-- #endregion -->
+
         <!-- #region Account managment -->
         <script src="~/js/spa/User/loginCtrl.js"></script>
         <script src="~/js/spa/User/userRegCtrl.js"></script>
         <!-- #endregion -->
+
         <!-- #region Expense -->
+        <script src="~/js/spa/Expense/editExpenseCtrl.js"></script>
+        <script src="~/js/spa/Expense/indexExpenseCtrl.js"></script>
         <script src="~/js/spa/Expense/expenseEntryCtrl.js"></script>
         <script src="~/js/spa/services/expenseService.js"></script>
         <!-- #endregion -->

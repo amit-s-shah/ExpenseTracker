@@ -1,6 +1,22 @@
-﻿<div layout="row" layout-padding layout-fill layout-align="center center" ng-cloak>
+﻿<div layout="column" layout-padding layout-fill ng-cloak>
     <md-whiteframe class="md-whiteframe-5dp" flex>
-        <h1>Expense Tracker</h1>
+        <h1>{{homeCtl.title}}</h1>
         <p>Welcome to Expesne Tracker application</p>
+        <div layout="row" >
+            <md-card flex-gt-xs="30" hide-xs>
+                <md-card-content>
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="homeCtl.data" chart-labels="homeCtl.labels"
+                            chart-series="homeCtl.series"></canvas>
+                </md-card-content>
+            </md-card>
+            <md-card flex-gt-xs="30" hide-xs>
+                <md-card-content>
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="homeCtl.data" chart-labels="homeCtl.labels"
+                            chart-series="homeCtl.series"></canvas>
+                </md-card-content>
+            </md-card>
+        </div>
     </md-whiteframe>
 </div>

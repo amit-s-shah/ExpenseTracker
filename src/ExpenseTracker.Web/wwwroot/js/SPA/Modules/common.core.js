@@ -3,7 +3,7 @@
 
     angular.module('common.core', [
         // Angular modules 
-        'ngRoute', 'ngCookies', 'base64'
+        'ngRoute', 'ngCookies'
         //, 'angularFileUpload', 'angularValidator', 'angucomplete-alt'
 
         // Custom modules 

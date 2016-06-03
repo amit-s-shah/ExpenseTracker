@@ -10,7 +10,9 @@
 
     function configfn($routeProvider, $mdThemingProvider) {
         $routeProvider.when("/", {
-            templateUrl: "js/spa/home/index.html"
+            templateUrl: "js/spa/home/index.html",
+            controller: "homeCtrl",
+            controllerAs: "homeCtl"
         })
         .when("/billers",
         {
@@ -39,10 +41,9 @@
         })
         .when("/ExpenseEntry/",
         {
-            templateUrl: "js/spa/Expense/Addexpenses.html",
-            //templateUrl: "js/spa/Expense/AddExpenses.html",
-            controller: "expenseEntryCtrl",
-            controllerAs: "expenseCtrl",
+            templateUrl: "js/spa/Expense/Expenses.html",
+            controller: "indexExpenseCtrl",
+            controllerAs: "indexCtrl",
             resolve: {
                 paymentMethods: function (expenseService) {
                     return expenseService.paymentPromise();

@@ -10,6 +10,7 @@ namespace ExpenseTracker.Web.ViewModels
 {
     public class ExpenseItemViewModel : BaseViewModel<ExpenseItemViewModel>
     {
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

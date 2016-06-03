@@ -10,6 +10,6 @@ namespace ExpenseTracker.Web.ViewModels
     public class PaymentMethodViewModel 
     {
         public int Id { get; set; }
-        public string Value { get; set; }
+        public string Name { get; set; }
     }
 }

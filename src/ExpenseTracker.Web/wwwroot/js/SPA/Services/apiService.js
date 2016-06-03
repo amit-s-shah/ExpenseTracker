@@ -27,6 +27,8 @@
                                     }
                                     else if (failure != null) {
                                         failure(error);
+                                    } else {
+                                        generalFailure(error);
                                     }
                                 }
                             );
@@ -46,9 +48,15 @@
                                     }
                                     else if (failure != null) {
                                         failure(error);
+                                    } else {
+                                        generalFailure(error);
                                     }
                                 }
                             );
+        }
+
+        function generalFailure(error) {
+            notificationService.displayError(error.data);
         }
     }
 })(angular.module('common.core'));

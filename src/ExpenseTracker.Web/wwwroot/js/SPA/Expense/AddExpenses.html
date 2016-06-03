@@ -1,95 +1,90 @@
-﻿<div layout="row" layout-margin ng-cloak>
-    <md-whiteframe class="md-whiteframe-5dp" flex>
-        <md-card>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">
-                        Daily Expense Entry for 
-                        <md-datepicker ng-model="expenseCtrl.expense.purchaseddate" md-placeholder="Enter date">
-                        </md-datepicker>
-                    </span>
-                </md-card-title-text>
-            </md-card-title>
-        </md-card>
-        <md-list>
-            <md-list-item>
-                <md-card-content flex-gt-xs="40">
-                    <md-card flex>
-                        <md-card-content>
-                            <md-input-container class="md-block">
-                                <input type="text" id="inputName" ng-model="expenseCtrl.expense.name"
-                                       placeholder="What you bought?" md-autofocus>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <input type="text" id="inputDescription" ng-model="expenseCtrl.expense.description"
-                                       placeholder="Enter Description">
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <div class="col-md-4">
-                                    <input type="number" id="inputAmount" ng-model="expenseCtrl.expense.amount"
-                                           placeholder="Enter Amount">
-                                </div>
-                            </md-input-container>
+﻿<div layout="row" layout-padding flex>
+    <md-card>
+        <md-card-header>
+            <md-card-header-text>
+                <span>Expense Entry</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-content>
+            <div layout-gt-sm="row">
+                <md-input-container>
+                    <input type="text" id="inputName" ng-model="expenseCtrl.expense.name"
+                           placeholder="What you bought?" md-autofocus>
+                </md-input-container>
+                <md-input-container>
+                    <input type="text" id="inputDescription" ng-model="expenseCtrl.expense.description"
+                           placeholder="Enter Description">
+                </md-input-container>
+            </div>
 
-                            <md-autocomplete md-selected-item="expenseCtrl.expense.category"
-                                             md-search-text="expenseCtrl.searchCatTxt"
-                                             md-items="category in expenseCtrl.querySearchCategory(expenseCtrl.searchCatTxt)"
-                                             md-item-text="category.name"
-                                             md-min-length="0"
-                                             md-select-on-match="true"
-                                             md-floating-label="Enter Purchase Category">
-                                <md-item-template>
-                                    <span class="item-title"><strong>{{category.name + ":"}}</strong></span>
-                                    <span class="item-metadata">
-                                        <span class="item-metastat">
-                                            {{category.description}}
-                                        </span>
-                                    </span>
-                                </md-item-template>
-                                <md-not-found>
-                                    No category matching "{{expenseCtrl.searchCatTxt}}" were found.
-                                </md-not-found>
-                            </md-autocomplete>
+            <div layout-gt-sm="row">
+                <md-input-container>
+                    <input type="number" id="inputAmount" ng-model="expenseCtrl.expense.amount"
+                           placeholder="Enter Amount">
+                </md-input-container>
 
-                            <md-autocomplete md-selected-item="expenseCtrl.expense.biller"
-                                             md-search-text="expenseCtrl.searchBillerTxt"
-                                             md-items="biller in expenseCtrl.querySearchBiller(expenseCtrl.searchBillerTxt)"
-                                             md-item-text="biller.name"
-                                             md-min-length="0"
-                                             md-select-on-match="true"
-                                             md-floating-label="Enter Biller">
-                                <md-item-template>
-                                    <span class="item-title"><strong>{{biller.name}}</strong></span>
-                                    <span class="item-metadata">
-                                        <span class="item-metastat">
-                                            <i class="fa fa-location-arrow">  </i>{{biller.address}}
-                                        </span>
-                                    </span>
-                                </md-item-template>
-                                <md-not-found>
-                                    No biller matching "{{expenseCtrl.searchBillerTxt}}" were found.
-                                </md-not-found>
-                            </md-autocomplete>
+                <md-autocomplete md-selected-item="expenseCtrl.expense.category"
+                                 md-search-text="expenseCtrl.searchCatTxt"
+                                 md-items="category in expenseCtrl.querySearchCategory(expenseCtrl.searchCatTxt)"
+                                 md-item-text="category.name"
+                                 md-min-length="0"
+                                 md-select-on-match="true"
+                                 md-floating-label="Enter Purchase Category">
+                    <md-item-template>
+                        <span class="item-title"><strong>{{category.name + ":"}}</strong></span>
+                        <span class="item-metadata">
+                            <span class="item-metastat">
+                                {{category.description}}
+                            </span>
+                        </span>
+                    </md-item-template>
+                    <md-not-found>
+                        No category matching "{{expenseCtrl.searchCatTxt}}" were found.
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
 
-                            <md-input-container class="md-block">
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="expenseCtrl.expense.paymentMethod"
-                                           typeahead="paymentMethod as paymentMethod.value for paymentMethod in expenseCtrl.paymentMethods | filter:$viewValue | limitTo:8"
-                                           typeahead-template-url="../JS//SPA/templates/paymentMethod-tpl.html"
-                                           id="inputPaymentMethod" placeholder="Enter Payment Method ">
-                                </div>
-                            </md-input-container>
-                        </md-card-content>
-                        <md-card-actions>
-                            <md-button class="md-raised" title="Save Expenses" ng-click="expenseCtrl.saveExpense()">
-                                Save
-                            </md-button>
-                            <md-button class="md-raised" title="Reset" ng-click="expenseCtrl.reset()">
-                                Reset
-                            </md-button>
-                        </md-card-actions>
-                    </md-card>
-            </md-list-item>
-        </md-list>
-    </md-whiteframe>
+            <div layout-gt-sm="row">
+                <md-autocomplete md-selected-item="expenseCtrl.expense.biller"
+                                 md-search-text="expenseCtrl.searchBillerTxt"
+                                 md-items="biller in expenseCtrl.querySearchBiller(expenseCtrl.searchBillerTxt)"
+                                 md-item-text="biller.name"
+                                 md-min-length="0"
+                                 md-select-on-match="true"
+                                 md-floating-label="Enter Biller">
+                    <md-item-template>
+                        <span class="item-title"><strong>{{biller.name}}</strong></span>
+                        <span class="item-metadata">
+                            <span class="item-metastat">
+                                <i class="fa fa-location-arrow">  </i>{{biller.address}}
+                            </span>
+                        </span>
+                    </md-item-template>
+                    <md-not-found>
+                        No biller matching "{{expenseCtrl.searchBillerTxt}}" were found.
+                    </md-not-found>
+                </md-autocomplete>
+                <md-autocomplete md-selected-item="expenseCtrl.expense.paymentMethod"
+                                 md-search-text="expenseCtrl.searchPayTxt"
+                                 md-items="payMethod in expenseCtrl.querySearchPaymentMethod(expenseCtrl.searchPayTxt)"
+                                 md-item-text="payMethod.name"
+                                 md-min-length="0"
+                                 md-select-on-match="true"
+                                 md-floating-label="Select Payment Method">
+                    <md-item-template>
+                        <span class="item-title"><strong>{{payMethod.name}}</strong></span>
+                    </md-item-template>
+                    <md-not-found>
+                        No biller matching "{{expenseCtrl.searchPayTxt}}" were found.
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+        </md-card-content>
+        <md-card-actions layout="row">
+            <md-button class="md-raised md-primary" title="Save Expenses" ng-click="expenseCtrl.saveExpense()">Save</md-button>
+            <md-button class="md-raised" title="Reset" ng-click="expenseCtrl.reset()">Reset</md-button>
+            <md-button class="md-raised" title="Cancel" ng-click="expenseCtrl.cancel()">Cancel</md-button>
+        </md-card-actions>
+    </md-card>
+
 </div>

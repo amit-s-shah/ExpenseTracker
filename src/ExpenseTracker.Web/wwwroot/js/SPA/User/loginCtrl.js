@@ -4,9 +4,9 @@
     module
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['accountMangement', 'notificationService', '$cookieStore', '$rootScope', '$location'];
+    loginCtrl.$inject = ['accountMangement', 'notificationService', '$rootScope', '$location'];
 
-    function loginCtrl(accountMangement, notificationService, $cookieStore, $rootScope, $location) {
+    function loginCtrl(accountMangement, notificationService, $rootScope, $location) {
         /* jshint validthis:true */
         var _this = this;
         _this.login = login;

@@ -20,20 +20,19 @@
                 </md-card-actions>
             </md-card>
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="biller in billers | filter:filterBillers">
-                    <md-card flex>
-                        <md-card-content>
-                            <md-checkbox id="chk{{biller.id}}" ng-model="biller.selected" aria-label="To delete select" flex="60" layout-wrap>
-                                <label for="chk{{biller.id}}">
-                                    <strong> {{biller.name}}</strong> <i class="fa fa-location-arrow"></i>  <i>{{biller.address}}</i>
-                                </label>
-                            </md-checkbox>
-                            <md-button class="md-icon-button" ng-click="openEditDialog(biller, $event);"
-                                       aria-label="Edit {{biller.name}}">
-                                <i class="fa fa-edit"></i>
-                            </md-button>
-                        </md-card-content>
-                    </md-card>
+                <md-list-item class="md-2-line" ng-repeat="biller in billers | filter:filterBillers">
+                    <div class="md-list-item-text">
+                        <md-checkbox id="chk{{biller.id}}" ng-model="biller.selected" aria-label="To delete select" flex="60" layout-wrap>
+                            <label for="chk{{biller.id}}">
+                                <strong> {{biller.name}}</strong> <i class="fa fa-location-arrow"></i>  <i>{{biller.address}}</i>
+                            </label>
+                        </md-checkbox>
+                        <md-button class="md-fab md-mini" ng-click="openEditDialog(biller, $event);"
+                                   aria-label="Edit {{biller.name}}">
+                            <i class="fa fa-edit"></i>
+                        </md-button>
+                    </div>
+                    <md-divider></md-divider>
                 </md-list-item>
             </md-list>
         </div>
