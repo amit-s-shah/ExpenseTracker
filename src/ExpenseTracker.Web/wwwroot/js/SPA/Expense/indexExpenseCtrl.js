@@ -19,6 +19,7 @@
         _this.getExpenses = getExpenses;
         _this.anythingSelectedForDelete = anythingSelectedForDelete;
         _this.openEditDialog = openEditDialog;
+        _this.openDeleteDialog = openDeleteDialog;
         _this.clearSearch = clearSearch;
 
         function clearSearch() {
@@ -81,6 +82,41 @@
             }, function () {
 
             });
+        }
+
+        function openDeleteDialog(ev) {
+            var textContent = '';
+            var selectedForDelete = $filter('filter')(_this.expenses, { selected: true });
+            var arrayMaxIndex = selectedForDelete.length - 1;
+            for (var i = 0; i < selectedForDelete .length; i++) {
+                if (i == arrayMaxIndex)
+                    textContent = textContent + selectedForDelete [i].name;
+                else
+                    textContent = textContent + selectedForDelete [i].name + ', ';
+            }
+
+            var confirm = $mdDialog.confirm()
+                          .title('sure , wanna delete following items?')
+                          .textContent(textContent)
+                          .ariaLabel('Lucky day')
+                          .targetEvent(ev)
+                          .ok('Delete')
+                          .cancel('Cancel');
+            //console.log(selectedForDelete )
+            $mdDialog.show(confirm).then(function () {
+                deleteExpenses(selectedForDelete );
+            }, function () {
+            }
+            );
+        }
+
+        function deleteExpenses(selectedForDelete) {
+            expenseService.deleteExpenses(selectedForDelete,deleteCompleted, null);
+        }
+
+        function deleteCompleted(response) {
+            notificationService.displaySuccess('Selected expense(s) has been deleted');
+            getExpenses();
         }
 
         getExpenses();

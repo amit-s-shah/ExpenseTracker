@@ -55,6 +55,14 @@
             expense.paymentMethodId = expense.paymentMethod.id;
             apiService.postData('/ExpenseItem/EditExpese', expense, success, failure)
         }
+
+        function deleteExpenses(selectedForDelete, success, failure) {
+
+            apiService.postData('/ExpenseItem/DeleteExpese/', selectedForDelete,
+                                                        success,
+                                                        failure);
+        }
+
         //#endregion
 
         //#region AutoComplete filter functions
@@ -80,7 +88,8 @@
             querySearch: querySearch,
             addExpense: addExpense,
             getExpenses: getExpenses,
-            editExpense: editExpense
+            editExpense: editExpense,
+            deleteExpenses : deleteExpenses
         };
 
         return service;

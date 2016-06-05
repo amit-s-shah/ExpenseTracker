@@ -31,20 +31,15 @@ namespace ExpenseTracker.Web.Controllers
         }
 
         [HttpPost]
-        public bool AddExpese([FromBody]ExpenseItemViewModel item)
+        public int AddExpese([FromBody]ExpenseItemViewModel item)
         {
-            bool result;
-            if (item == null)
-            {
-                NoContent();
-                result = false;
-            }
-            else
+            int result = 0 ;
+            if (item != null)
             {
                 var model = Mapper.Map<ExpenseItem>(item);
                 _expenseRepository.Add(model);
                 _unitofWork.Commit();
-                result = true;
+                result = model.ID;
             }
             return result;
         }
@@ -62,6 +57,26 @@ namespace ExpenseTracker.Web.Controllers
             {
                 var model = Mapper.Map<ExpenseItem>(item);
                 _expenseRepository.Edit(model);
+                _unitofWork.Commit();
+                result = true;
+            }
+            return result;
+        }
+
+        [HttpPost]
+        public bool DeleteExpese([FromBody]IEnumerable<ExpenseItemViewModel> items)
+        {
+            bool result;
+            if (items == null)
+            {
+                NoContent();
+                result = false;
+            }
+            else
+            {
+                var models = Mapper.Map< IEnumerable<ExpenseItem>>(items);
+                foreach (var model in models)
+                    _expenseRepository.Delete(model);
                 _unitofWork.Commit();
                 result = true;
             }

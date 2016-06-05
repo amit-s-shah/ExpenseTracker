@@ -30,8 +30,9 @@
         }
 
         function success(response){
-            if (response.data == true) {
+            if (response.data > 0) {
                 notificationService.displaySuccess(_this.expense.name + ' is saved');
+                _this.expense.id = response.data;
                 $mdDialog.hide(_this.expense);
             }
             else

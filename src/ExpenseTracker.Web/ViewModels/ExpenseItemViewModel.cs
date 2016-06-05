@@ -18,7 +18,7 @@ namespace ExpenseTracker.Web.ViewModels
 
         public float Amount { get; set; }
 
-        public DateTime Purchaseddate { get; set; }
+        public DateTime? Purchaseddate { get; set; }
 
         public int CategoryId { get; set; }
 

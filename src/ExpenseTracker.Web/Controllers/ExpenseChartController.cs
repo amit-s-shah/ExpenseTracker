@@ -20,20 +20,36 @@ namespace ExpenseTracker.Web.Controllers
             _expenseRepository = expenseRepository;
         }
 
-        //Type of Grap
-        //Y-axis X-axis
-        //Amount vs Month
-        //Amount per category vs Month
-
-        public void GetAllExpense()
+        /// <summary>
+        /// Month, category, amonth
+        /// </summary>
+        /// <returns></returns>
+        public ExpenseChartViewModal<string, string, float> GetAllExpense()
         {
-            ExpenseChartViewModal expenseChartViewModal = new ExpenseChartViewModal();
-            expenseChartViewModal.Amounts = new List<List<float>>();
-            expenseChartViewModal.Categories = new List<List<string>>();
+            var result = new ExpenseChartViewModal<string, string, float>();
+            var expenses = _expenseRepository.AllIncluding(item => item.Category).ToList();
 
-            var expenses = _expenseRepository.GetAll();
-            expenseChartViewModal.Amounts.Append(expenses.Select(e => e.Amount).ToList());
-            expenseChartViewModal.Months = expenses.Select(e => e.PurchasedDate.ToShortMonthName()).AsEnumerable();
+            var query = from exp in expenses
+                        group exp by exp.PurchasedDate.ToShortMonthName() into mnthGrp
+                        from mnthCatGrp in
+                            (
+                                from exp in mnthGrp
+                                group exp by exp.Category.Name
+                            )
+                        group mnthCatGrp by mnthGrp.Key
+                        ;
+
+            foreach (var outerGroup in query)
+            {
+                result.Labels.Add(outerGroup.Key);
+                result.Data.Add(new List<float>());
+                foreach (var innerGroup in outerGroup)
+                {
+                    result.Series.Add(innerGroup.Key);
+                    result.Data[result.Labels.Count - 1].Add(innerGroup.Sum(i => i.Amount));
+                }
+            }
+            return result;
         }
     }
 }
