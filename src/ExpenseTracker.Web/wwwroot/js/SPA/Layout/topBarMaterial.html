@@ -1,44 +1,97 @@
-﻿<md-toolbar class="md-hue-2">
-    <div class="md-toolbar-tools">
-        <h2 flex="20">
-            <a ng-href="#/">
-                <span class="md-title">Expense Tracker</span>
-            </a>
-        </h2>
-        <md-menu hide show-gt-md>
-            <md-button class="md-button" ng-click="$mdOpenMenu()">
-                Expenses
-            </md-button>
-            <md-menu-content width="4">
-                <md-menu-item>
-                    <md-button ng-href="#/ExpenseEntry/">
-                        Daily Expense
-                    </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider>
-            </md-menu-content>
-        </md-menu>
-        <md-menu hide show-gt-md>
-            <md-button class="md-button" ng-click="$mdOpenMenu()">
-                Master Data Setup
-            </md-button>
-            <md-menu-content width="4">
-                <md-menu-item>
-                    <md-button ng-href="#/billers/">
-                        Biller
-                    </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider>
-                <md-menu-item>
-                    <md-button ng-href="#/categories/">
-                        Category
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
-        <span flex></span>
-        <md-button ng-href="#login" ng-hide="rootCtr.isUserloggedIn()">Login</md-button>
-        <md-button ng-href="#logout" ng-show="rootCtr.isUserloggedIn()" ng-click="rootCtr.logout()">Logout</md-button>
-        <md-button ng-href="#about">About</md-button>
-    </div>
-</md-toolbar>
+﻿<div>
+    <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <div hide show-xs>
+                <md-menu-bar>
+                    <md-menu>
+                        <button ng-click="$mdOpenMenu()">
+                            <span class="fa fa-bars"></span>
+                        </button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-menu>
+                                    <md-button ng-click="$mdOpenMenu()">Expenses</md-button>
+                                    <md-menu-content width="1">
+                                        <md-menu-item><md-button ng-href="#/ExpenseEntry/">Daily Expense</md-button></md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu>
+                                <md-button ng-click="$mdOpenMenu()">Master Data Setup</md-button>
+                                <md-menu-content width="1">
+                                    <md-menu-item><md-button ng-href="#/billers/">Biller</md-button></md-menu-item>
+                                    <md-menu-divider></md-menu-divider>
+                                    <md-menu-item><md-button ng-href="#/categories/">Category</md-button></md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-menu>
+                                    <md-button ng-click="$mdOpenMenu()">Account</md-button>
+                                    <md-menu-content width="1">
+                                        <md-menu-item>
+                                            <md-button ng-href="#login" ng-hide="rootCtr.isUserloggedIn()">Login</md-button>
+                                            <md-button ng-href="#logout" ng-show="rootCtr.isUserloggedIn()" ng-click="rootCtr.logout()">Logout</md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-menu-bar>
+            </div>
+            <h2 flex-gt-xs="20">
+                <a ng-href="#/">
+                    <span class="md-title">Expense Tracker</span>
+                </a>
+            </h2>
+            <span flex></span>
+            <div hide show-gt-xs>
+                <md-menu-bar>
+                    <md-menu>
+                        <button ng-click="$mdOpenMenu()">
+                            Expenses
+                        </button>
+                        <md-menu-content width="1">
+                            <md-menu-item>
+                                <md-button ng-href="#/ExpenseEntry/">
+                                    Daily Expense
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <md-menu>
+                        <button class="md-raise" ng-click="$mdOpenMenu()">
+                            Master Data Setup
+                        </button>
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button ng-href="#/billers/">
+                                    Biller
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-href="#/categories/">
+                                    Category
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <md-menu>
+                        <button class="md-raise" ng-click="$mdOpenMenu()">
+                            <span ng-show="rootCtr.isUserloggedIn()">{{rootCtr.userData.userName + "'s"}}</span> Account
+                        </button>
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button ng-href="#login" ng-hide="rootCtr.isUserloggedIn()">Login</md-button>
+                                <md-button ng-href="#logout" ng-show="rootCtr.isUserloggedIn()" ng-click="rootCtr.logout()">Logout</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-menu-bar>
+            </div>
+        </div>
+    </md-toolbar>
+</div>

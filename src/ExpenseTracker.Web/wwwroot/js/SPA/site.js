@@ -51,11 +51,15 @@
                 categories: function (expenseService) {
                     return expenseService.categoryPromise();
                 },
-                billers : function (expenseService) {
+                billers: function (expenseService) {
                     return expenseService.billerPromise();
                 }
             }
         }).otherwise({ redirectTo: "/" });
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('light-blue')
+            .accentPalette('grey');
 
         $mdThemingProvider
             .theme('errorTheme')

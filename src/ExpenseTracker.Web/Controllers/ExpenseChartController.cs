@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using ExpenseTracker.Web.Infrastructure.Core;
 using ExpenseTracker.Data.Infrastructure;
 using ExpenseTracker.Entities;
@@ -20,36 +19,66 @@ namespace ExpenseTracker.Web.Controllers
             _expenseRepository = expenseRepository;
         }
 
-        /// <summary>
-        /// Month, category, amonth
-        /// </summary>
-        /// <returns></returns>
         public ExpenseChartViewModal<string, string, float> GetAllExpense()
         {
-            var result = new ExpenseChartViewModal<string, string, float>();
-            var expenses = _expenseRepository.AllIncluding(item => item.Category).ToList();
-
-            var query = from exp in expenses
-                        group exp by exp.PurchasedDate.ToShortMonthName() into mnthGrp
-                        from mnthCatGrp in
-                            (
-                                from exp in mnthGrp
-                                group exp by exp.Category.Name
-                            )
-                        group mnthCatGrp by mnthGrp.Key
-                        ;
-
-            foreach (var outerGroup in query)
+            var expenses = _expenseRepository.AllIncluding(expense => expense.Category).Where(i => i.PurchasedDate > DateTime.Now.AddMonths(-6));
+            var query = from expense in expenses
+                        group expense by
+                        new
+                        {
+                            category = expense.Category.Name,
+                            categoryId = expense.CategoryId,
+                            ShortMonth = expense.PurchasedDate.ToShortMonthName() + "-" + expense.PurchasedDate.Year,
+                            month = expense.PurchasedDate.Month,
+                        } into GrpByCatMonth
+                        orderby GrpByCatMonth.Key.month, GrpByCatMonth.Key.categoryId
+                        select new
+                        {
+                            GrpByCatMonth.Key.ShortMonth,
+                            GrpByCatMonth.Key.category,
+                            GrpAmount = GrpByCatMonth.Sum(a => a.Amount),
+                            key = GrpByCatMonth.Key.ShortMonth + "_" + GrpByCatMonth.Key.category
+                        };
+            var result = query.ToList();
+            var dic = result.ToDictionary(i => i.key);
+            ExpenseChartViewModal<string, string, float> modal = new ExpenseChartViewModal<string, string, float>();
+            modal.Labels = result.Select(i => i.ShortMonth).Distinct().ToList();
+            modal.Series = result.Select(i => i.category).Distinct().ToList();
+            foreach (var cat in modal.Series)
             {
-                result.Labels.Add(outerGroup.Key);
-                result.Data.Add(new List<float>());
-                foreach (var innerGroup in outerGroup)
+                modal.Data.Add(new List<float>());
+                foreach (var mnt in modal.Labels)
                 {
-                    result.Series.Add(innerGroup.Key);
-                    result.Data[result.Labels.Count - 1].Add(innerGroup.Sum(i => i.Amount));
+                    if (dic.ContainsKey(mnt + "_" + cat))
+                        modal.Data.Last().Add(dic[mnt + "_" + cat].GrpAmount);
+                    else
+                        modal.Data.Last().Add(0);
                 }
             }
-            return result;
+            return modal;
+        }
+
+        public ExpenseChartViewModal<string, string, float> GetDataForPieChart()
+        {
+            var expenses = _expenseRepository.AllIncluding(expense => expense.Category).Where(i => i.PurchasedDate.Month == DateTime.Now.Month && i.PurchasedDate.Year == DateTime.Now.Year);
+            var query = from expense in expenses
+                        group expense by expense.Category.Name
+                        into GrpByCat
+                        orderby GrpByCat.Key
+                        select new
+                        {
+                            name = GrpByCat.Key,
+                            GrpAmount = GrpByCat.Sum(a => a.Amount),
+                        };
+            var result = query.ToList();
+            ExpenseChartViewModal<string, string, float> modal = new ExpenseChartViewModal<string, string, float>();
+            modal.Data.Add(new List<float>());
+            foreach (var item in result)
+            {
+                modal.Labels.Add(item.name);
+                modal.Data.Last().Add(item.GrpAmount);
+            }
+            return modal;
         }
     }
 }

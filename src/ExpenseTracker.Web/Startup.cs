@@ -60,13 +60,15 @@ namespace ExpenseTracker.Web
 
             services.//AddMvc()
                 AddMvc(setup => setup.Filters.Add(new AuthorizeFilter(defaultPolicy)))
-                    .AddJsonOptions(opts => {
+                    .AddJsonOptions(opts =>
+                    {
                         opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                         opts.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
                     });
 
             services.AddAuthorization(
-                opts => {
+                opts =>
+                {
                     opts.AddPolicy("Name", policy => policy.RequireClaim(System.Security.Claims.ClaimTypes.Name));
                 }
             );

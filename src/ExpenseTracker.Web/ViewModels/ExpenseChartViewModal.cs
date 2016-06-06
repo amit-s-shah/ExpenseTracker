@@ -1,23 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ExpenseTracker.Web.ViewModels
 {
-    public class ExpenseChartViewModal<L,S, D>
+    public class ExpenseChartViewModal<L, S, D>
     {
-        public List<L> Labels { get; set; }
+        //Y-axis values
+        public IList<L> Labels { get; set; }
 
-        public List<S> Series { get; set; }
+        //X-axis labels
+        public IList<S> Series { get; set; }
 
-        //data for chart
-        // number of Series must be same as number of arrays in Data
-        // number of elements in each array must be same as number of elements of Labels 
-        public List<List<D>> Data { get; set; }
+        //labels on a chart area
+        public IList<IList<D>> Data { get; set; }
 
         public ExpenseChartViewModal()
         {
             Labels = new List<L>();
             Series = new List<S>();
-            Data = new List<List<D>>();
+            Data = new List<IList<D>>();
         }
     }
 }

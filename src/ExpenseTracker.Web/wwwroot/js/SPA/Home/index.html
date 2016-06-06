@@ -1,22 +1,48 @@
 ﻿<div layout="column" layout-padding layout-fill ng-cloak>
     <md-whiteframe class="md-whiteframe-5dp" flex>
         <h1>{{homeCtl.title}}</h1>
-        <p>Welcome to Expesne Tracker application</p>
-        <div layout="row" >
-            <md-card flex-gt-xs="30" hide-xs>
+        <div layout-gt-xs="row">
+            <md-card flex-gt-xs="50">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-subheader">Current monthly expense distribution</span>
+                    </md-card-title-text>
+                </md-card-title>
                 <md-card-content>
-                    <canvas id="bar" class="chart chart-bar"
+                    <canvas id="pie" class="chart chart-pie"
+                            chart-legend="true"
+                            chart-data="homeCtl.pieData" chart-labels="homeCtl.pieLabels"></canvas>
+                </md-card-content>
+            </md-card>
+            <md-card flex-gt-xs="50">
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-subheader">Expenses in each categories</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content>
+                    <canvas id="line" class="chart chart-line"
                             chart-data="homeCtl.data" chart-labels="homeCtl.labels"
+                            chart-legend="true"
                             chart-series="homeCtl.series"></canvas>
                 </md-card-content>
             </md-card>
-            <md-card flex-gt-xs="30" hide-xs>
+            <md-card flex-gt-xs="50">
+                <md-card-header>
+                    <md-card-header-text>
+                        <span class="md-subheader">Expenses in each categories</span>
+                    </md-card-header-text>
+                </md-card-header>
                 <md-card-content>
                     <canvas id="bar" class="chart chart-bar"
                             chart-data="homeCtl.data" chart-labels="homeCtl.labels"
+                            chart-legend="true"
                             chart-series="homeCtl.series"></canvas>
                 </md-card-content>
             </md-card>
         </div>
     </md-whiteframe>
+    <!--<pre>{{homeCtl.barResponse}}</pre>
+    <pre>{{homeCtl.pieResponse}}</pre>-->
+
 </div>
