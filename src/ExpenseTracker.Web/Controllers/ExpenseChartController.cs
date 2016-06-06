@@ -58,5 +58,28 @@ namespace ExpenseTracker.Web.Controllers
             }
             return modal;
         }
+
+        public ExpenseChartViewModal<string, string, float> GetDataForPieChart()
+        {
+            var expenses = _expenseRepository.AllIncluding(expense => expense.Category).Where(i => i.PurchasedDate.Month == DateTime.Now.Month && i.PurchasedDate.Year == DateTime.Now.Year);
+            var query = from expense in expenses
+                        group expense by expense.Category.Name
+                        into GrpByCat
+                        orderby GrpByCat.Key
+                        select new 
+                        {
+                            name =  GrpByCat.Key,
+                            GrpAmount = GrpByCat.Sum(a => a.Amount),
+                        };
+            var result = query.ToList();
+            ExpenseChartViewModal<string, string, float> modal = new ExpenseChartViewModal<string, string, float>();
+            modal.Data.Add(new List<float>());
+            foreach (var item in result)
+            {
+                modal.Labels.Add(item.name);
+                modal.Data.Last().Add(item.GrpAmount);
+            }
+            return modal;
+        }
     }
 }

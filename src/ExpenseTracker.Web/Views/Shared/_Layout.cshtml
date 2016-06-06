@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
-    
+
 </head>
 <body ng-controller="rootCtrl as rootCtr" layout="column">
     <top-bar></top-bar>
@@ -29,12 +29,12 @@
     @*<div flex layout="row" layout-padding>
             <div layout="column" flex ng-view></div>
         </div>*@
-    <div class="container" layout="row">
-        <md-content flex>
+    <md-content layout="column" flex>
+        <div layout="column">
             <ng-view>
             </ng-view>
-        </md-content>
-    </div>
+        </div>
+    </md-content>
     @RenderBody()
     <div layout layout-align="center" class="ui-grid-footer-viewport">
         <p>&copy; 2016 - Expense Tracker</p>
@@ -59,8 +59,6 @@
         <script src="~/js/spa/home/homeCtrl.js"></script>
 
         <!-- #endregion -->
-
-
         <!-- #region Biller -->
 
         <script src="~/js/spa/biller/billerctrl.js"></script>
@@ -68,18 +66,15 @@
         <script src="~/js/spa/biller/billerAddCtrl.js"></script>
 
         <!-- #endregion -->
-
         <!-- #region Category -->
         <script src="~/js/spa/Category/IndexCategoryCtrl.js"></script>
         <script src="~/js/spa/Category/addCategoryCtrl.js"></script>
         <script src="~/js/spa/Category/editCategoryCtrl.js"></script>
         <!-- #endregion -->
-
         <!-- #region Account managment -->
         <script src="~/js/spa/User/loginCtrl.js"></script>
         <script src="~/js/spa/User/userRegCtrl.js"></script>
         <!-- #endregion -->
-
         <!-- #region Expense -->
         <script src="~/js/spa/Expense/editExpenseCtrl.js"></script>
         <script src="~/js/spa/Expense/indexExpenseCtrl.js"></script>

@@ -4,9 +4,9 @@
             <md-card>
                 <md-card-title>
                     <md-card-title-text>
-                        <div layout="row" layout-margin>
-                            <span class="md-headline">{{indexCtrl.title}}</span>
-                            <md-datepicker ng-model="indexCtrl.purchaseddate" md-placeholder="Enter date" 
+                        <div>
+                            <span class="md-title">{{indexCtrl.title + " for "}}</span>
+                            <md-datepicker ng-model="indexCtrl.purchaseddate" md-placeholder="Enter date"
                                            ng-change="indexCtrl.getExpenses()">
                             </md-datepicker>
                         </div>
@@ -24,6 +24,7 @@
                     </md-card-icon-actions>
                 </md-card-actions>
             </md-card>
+            
             <md-list class="md-dense">
                 <md-list-item class="md-2-line" ng-repeat="expense in indexCtrl.expenses | filter:indexCtrl.filterExpense">
                     <div class="md-list-item-text" layout="column">
@@ -43,6 +44,9 @@
                         </p>
                         <md-divider></md-divider>
                     </div>
+                </md-list-item>
+                <md-list-item ng-show="indexCtrl.expenses.length == 0">
+                    No expense is entered for selected day.
                 </md-list-item>
             </md-list>
         </div>

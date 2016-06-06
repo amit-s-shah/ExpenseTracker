@@ -57,6 +57,10 @@
             }
         }).otherwise({ redirectTo: "/" });
 
+        $mdThemingProvider.theme('default')
+            .primaryPalette('light-blue')
+            .accentPalette('grey');
+
         $mdThemingProvider
             .theme('errorTheme')
             .backgroundPalette('red');
