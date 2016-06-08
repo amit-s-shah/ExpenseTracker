@@ -1,6 +1,7 @@
 ﻿using ExpenseTracker.Web.Infrastructure.Core;
 using System.Collections.Generic;
 using FluentValidation;
+using Infrastructure.Validators;
 
 namespace ExpenseTracker.Web.ViewModels
 {
@@ -25,8 +26,8 @@ namespace ExpenseTracker.Web.ViewModels
         {
             get
             {
-                //if (_validator == null)
-                //    _validator = new RegisterUserViewModelValidator();
+                if (_validator == null)
+                    _validator = new UserRoleViewModelValidator();
                 return _validator;
             }
         }

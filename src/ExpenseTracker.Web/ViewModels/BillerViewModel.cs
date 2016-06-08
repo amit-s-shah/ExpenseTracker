@@ -15,6 +15,8 @@ namespace ExpenseTracker.Web.ViewModels
 
         public string Address { get; set; }
 
+        public string CreatedBy { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validator = new BillerViewModelValidator();

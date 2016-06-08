@@ -38,7 +38,7 @@ namespace ExpenseTracker.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<bool> LoginAsync([FromBody]LoginViewModel user)
+        public async Task<bool> LoginAsync([FromBody] LoginViewModel user)
         {
             bool result;
             if (ModelState.IsValid)

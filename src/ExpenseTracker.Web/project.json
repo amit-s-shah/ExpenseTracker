@@ -54,8 +54,8 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Owin": "1.0.0-rc2-final",
-    "Microsoft.AspNetCore.Http.Extensions": "1.0.0-rc2-final"
-
+    "Microsoft.AspNetCore.Http.Extensions": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Mvc.Abstractions": "1.0.0-rc2-final"
     //"System.Net.Primitives": "4.0.11-rc2-24027"
   },
 

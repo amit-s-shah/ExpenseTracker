@@ -2,6 +2,7 @@
 using ExpenseTracker.Data;
 using ExpenseTracker.Data.Extensions;
 using ExpenseTracker.Entities;
+using ExpenseTracker.Web.Infrastructure;
 using ExpenseTracker.Web.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -59,12 +60,17 @@ namespace ExpenseTracker.Web
                                     .Build();
 
             services.//AddMvc()
-                AddMvc(setup => setup.Filters.Add(new AuthorizeFilter(defaultPolicy)))
-                    .AddJsonOptions(opts =>
-                    {
-                        opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                        opts.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
-                    });
+                AddMvc(setup =>
+                {
+                    setup.Filters.Add(new AuthorizeFilter(defaultPolicy));
+                    setup.ModelBinderProviders.Insert(0, new UserRoleViewModelBinderProvider());
+                })
+                .AddJsonOptions(opts =>
+                {
+                    opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    opts.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
+                })
+                ;
 
             services.AddAuthorization(
                 opts =>
