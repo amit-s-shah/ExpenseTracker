@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
+/// <reference path="js/site.min.js" />
 /// <reference path="js/spa/biller/billeraddctrl.js" />
 /// <reference path="js/SPA/Biller/billerCtrl.js" />
 /// <reference path="js/spa/biller/billereditctrl.js" />

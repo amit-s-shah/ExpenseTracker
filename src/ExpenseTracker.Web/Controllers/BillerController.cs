@@ -71,19 +71,17 @@ namespace ExpenseTracker.Web.Controllers
         }
 
         [HttpPost]
-        public void Update([FromBody] BillerViewModel billerViewModel, UserRoleViewModel userRoleViewModel)
+        public void Update([FromBody] BillerViewModel billerViewModel)
         {
             var biller = Mapper.Map<Biller>(billerViewModel);
-            biller.CreatedBy = userRoleViewModel.UserName;
             _billerRepository.Edit(biller);
             _unitofWork.Commit();
         }
 
         [HttpPost]
-        public int Add([FromBody] BillerViewModel billerViewModel, UserRoleViewModel userRoleViewModel)
+        public int Add([FromBody] BillerViewModel billerViewModel)
         {
             var biller = Mapper.Map<Biller>(billerViewModel);
-            biller.CreatedBy = userRoleViewModel.UserName;
             _billerRepository.Add(biller);
             _unitofWork.Commit();
             return biller.ID;

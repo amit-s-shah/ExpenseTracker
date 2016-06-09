@@ -63,7 +63,8 @@ namespace ExpenseTracker.Web
                 AddMvc(setup =>
                 {
                     setup.Filters.Add(new AuthorizeFilter(defaultPolicy));
-                    setup.ModelBinderProviders.Insert(0, new UserRoleViewModelBinderProvider());
+                    setup.Filters.Add(new ActionFilerToAddUser());
+                    //setup.ModelBinderProviders.Insert(0, new UserRoleViewModelBinderProvider());
                 })
                 .AddJsonOptions(opts =>
                 {

@@ -28,6 +28,8 @@ namespace ExpenseTracker.Web.ViewModels
 
         public int? PaymentMethodId { get; set; }
 
+        public string CreatedBy { get; set; }
+
         AbstractValidator<ExpenseItemViewModel> expenseItemViewModelValidator;
         protected override AbstractValidator<ExpenseItemViewModel> Validator
         {
