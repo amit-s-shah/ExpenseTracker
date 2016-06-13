@@ -23,6 +23,6 @@ Following libraries are used:
 Work is penging in below area
 
       1. Modal Validations in AngularJs and Controllers
-      2. Except Account controller, every controllers dirrectly communicates with Data layer.
+      2. Except Account controller, every controllers directly communicates with Data layer.
       3. Error logging and handling
       4. Use CDN for production environments
