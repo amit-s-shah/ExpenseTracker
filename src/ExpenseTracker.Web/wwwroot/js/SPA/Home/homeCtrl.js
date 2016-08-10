@@ -26,7 +26,12 @@
         _this.GetDataForPieChart = GetDataForPieChart;
 
         function GetAllExpense() {
-            apiService.getData('ExpenseChart/GetAllExpense', null, successBar, null);
+            var config = {
+                params: {
+                    category: _this.selectedCategory
+                }
+            };
+            apiService.getData('ExpenseChart/GetAllExpense', config, successBar, null);
         }
 
         function successBar(response) {
@@ -39,6 +44,7 @@
         GetAllExpense();
 
         function GetDataForPieChart() {
+
             apiService.getData('ExpenseChart/GetDataForPieChart', null, successPie, null);
         }
 
@@ -46,8 +52,30 @@
             _this.pieLabels = response.data.labels;
             _this.pieData = response.data.data[0];
             _this.pieResponse = response.data;
+            _this.summary = response.data.summary;
         }
 
         GetDataForPieChart();
+
+        function GetCategories() {
+            var config = {
+                params: {
+                    filter: ""
+                }
+            };
+            apiService.getData('/Category/Search/', config, SearchCompleted, searchFailed);
+        }
+
+        function SearchCompleted(response) {
+            var defaultCategory = {name:"--All--", id : 0}
+            _this.categories = response.data;
+            _this.categories.unshift(defaultCategory);
+        }
+
+        function searchFailed(error) {
+            notificationService.displayError(error.data);
+        }
+
+        GetCategories();
     }
 })(angular.module('ExpenseTracker'));

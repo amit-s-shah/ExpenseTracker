@@ -16,6 +16,8 @@ namespace ExpenseTracker.Web.ViewModels
         //labels on a chart area
         public IList<IList<D>> Data { get; set; }
 
+        public string Summary { get; set; }
+
         public ExpenseChartViewModal()
         {
             Labels = new List<L>();

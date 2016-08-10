@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using ExpenseTracker.Data;
 using ExpenseTracker.Data.Extensions;
-using ExpenseTracker.Entities;
 using ExpenseTracker.Web.Infrastructure;
 using ExpenseTracker.Web.Infrastructure.Mappings;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -92,9 +91,7 @@ namespace ExpenseTracker.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             app.UseApplicationInsightsRequestTelemetry();
-
             if (env.IsDevelopment()) // use below Middlewares
             {
                 //app.UseBrowserLink();
@@ -109,21 +106,8 @@ namespace ExpenseTracker.Web
             else // in prod env use below Middlewares
             {
                 app.UseExceptionHandler("/Home/Error");
-
-                //// For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
-                //try
-                //{
-                //    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-                //        .CreateScope())
-                //    {
-                //        serviceScope.ServiceProvider.GetService<ExpenseTracker.Data.ExpenseTrackerContext>()
-                //             .Database.Migrate();
-                //    }
-                //}
-                //catch { }
             }
 
-            //app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             app.UseApplicationInsightsExceptionTelemetry();
 

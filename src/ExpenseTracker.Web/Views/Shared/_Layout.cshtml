@@ -14,14 +14,8 @@
                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
             <link rel="stylesheet" href="~/css/site.css" />
         </environment>*@
-    <environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
-    
+     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+
 </head>
 <body ng-controller="rootCtrl as rootCtr" layout="column">
     <top-bar></top-bar>
@@ -36,76 +30,58 @@
         </md-content>
     </div>
     @RenderBody()
-    <div layout layout-align="center" class="ui-grid-footer-viewport">
+    @*<div layout layout-align="center">
         <p>&copy; 2016 - Expense Tracker</p>
-    </div>
-    <environment names="Development">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="~/lib/angular/angular.js"></script>
-        <script src="~/lib/angular-route/angular-route.js"></script>
-        <script src="~/lib/angular-cookies/angular-cookies.js"></script>
-        <script src="~/lib/angular-base64/angular-base64.js"></script>
-        <script src="~/lib/angular-aria/angular-aria.js"></script>
-        <script src="~/lib/angular-animate/angular-animate.js"></script>
-        <script src="~/lib/angular-material/angular-material.js"></script>
-        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>*@
-        <script src="~/lib/Chart.js/dist/Chart.js"></script>
-        <script src="~/lib/angular-chart.js/dist/angular-chart.js"></script>
-        <!-- #region App level Scripts -->
-        <script src="~/js/spa/modules/common.core.js"></script>
-        <script src="~/js/spa/modules/common.ui.js"></script>
-        <script src="~/js/spa/site.js"></script>
-        <script src="~/js/spa/home/rootctrl.js"></script>
-        <script src="~/js/spa/home/homeCtrl.js"></script>
+    </div>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/angular-route/angular-route.js"></script>
+    <script src="~/lib/angular-cookies/angular-cookies.js"></script>
+    <script src="~/lib/angular-base64/angular-base64.js"></script>
+    <script src="~/lib/angular-aria/angular-aria.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.js"></script>
+    <script src="~/lib/angular-material/angular-material.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>*@
+    <script src="~/lib/Chart.js/dist/Chart.js"></script>
+    <script src="~/lib/angular-chart.js/dist/angular-chart.js"></script>
+    <!-- #region App level Scripts -->
+    <script src="~/js/spa/modules/common.core.js"></script>
+    <script src="~/js/spa/modules/common.ui.js"></script>
+    <script src="~/js/spa/site.js"></script>
+    <script src="~/js/spa/home/rootctrl.js"></script>
+    <script src="~/js/spa/home/homeCtrl.js"></script>
 
-        <!-- #endregion -->
+    <!-- #endregion -->
+    <!-- #region Biller -->
 
+    <script src="~/js/spa/biller/billerctrl.js"></script>
+    <script src="~/js/spa/biller/billereditctrl.js"></script>
+    <script src="~/js/spa/biller/billerAddCtrl.js"></script>
 
-        <!-- #region Biller -->
-
-        <script src="~/js/spa/biller/billerctrl.js"></script>
-        <script src="~/js/spa/biller/billereditctrl.js"></script>
-        <script src="~/js/spa/biller/billerAddCtrl.js"></script>
-
-        <!-- #endregion -->
-
-        <!-- #region Category -->
-        <script src="~/js/spa/Category/IndexCategoryCtrl.js"></script>
-        <script src="~/js/spa/Category/addCategoryCtrl.js"></script>
-        <script src="~/js/spa/Category/editCategoryCtrl.js"></script>
-        <!-- #endregion -->
-
-        <!-- #region Account managment -->
-        <script src="~/js/spa/User/loginCtrl.js"></script>
-        <script src="~/js/spa/User/userRegCtrl.js"></script>
-        <!-- #endregion -->
-
-        <!-- #region Expense -->
-        <script src="~/js/spa/Expense/editExpenseCtrl.js"></script>
-        <script src="~/js/spa/Expense/indexExpenseCtrl.js"></script>
-        <script src="~/js/spa/Expense/expenseEntryCtrl.js"></script>
-        <script src="~/js/spa/services/expenseService.js"></script>
-        <!-- #endregion -->
+    <!-- #endregion -->
+    <!-- #region Category -->
+    <script src="~/js/spa/Category/IndexCategoryCtrl.js"></script>
+    <script src="~/js/spa/Category/addCategoryCtrl.js"></script>
+    <script src="~/js/spa/Category/editCategoryCtrl.js"></script>
+    <!-- #endregion -->
+    <!-- #region Account managment -->
+    <script src="~/js/spa/User/loginCtrl.js"></script>
+    <script src="~/js/spa/User/userRegCtrl.js"></script>
+    <!-- #endregion -->
+    <!-- #region Expense -->
+    <script src="~/js/spa/Expense/editExpenseCtrl.js"></script>
+    <script src="~/js/spa/Expense/indexExpenseCtrl.js"></script>
+    <script src="~/js/spa/Expense/expenseEntryCtrl.js"></script>
+    <script src="~/js/spa/services/expenseService.js"></script>
+    <!-- #endregion -->
 
 
-        <script src="~/js/spa/layout/sidebar.directive.js"></script>
-        <script src="~/js/spa/layout/topbar.directive.js"></script>
-        <script src="~/js/spa/layout/custompager.js"></script>
-        <script src="~/js/spa/services/apiservice.js"></script>
-        <script src="~/js/spa/services/notificationservice.js"></script>
-        <script src="~/js/spa/services/accountMangement.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+    <script src="~/js/spa/layout/sidebar.directive.js"></script>
+    <script src="~/js/spa/layout/topbar.directive.js"></script>
+    <script src="~/js/spa/layout/custompager.js"></script>
+    <script src="~/js/spa/services/apiservice.js"></script>
+    <script src="~/js/spa/services/notificationservice.js"></script>
+    <script src="~/js/spa/services/accountMangement.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

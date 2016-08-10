@@ -2,11 +2,11 @@
     <md-whiteframe class="md-whiteframe-5dp" flex>
         <div layout="column">
             <md-card>
-                <md-card-title>
+                <!--<md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Billers</span>
                     </md-card-title-text>
-                </md-card-title>
+                </md-card-title>-->
                 <md-card-actions layout="row">
                     <md-input-container md-no-float class="md-block">
                         <input type="search" placeholder="Filter, search Billers.." ng-model="filterBillers">
@@ -24,7 +24,7 @@
                     <div class="md-list-item-text">
                         <md-checkbox id="chk{{biller.id}}" ng-model="biller.selected" aria-label="To delete select" flex="60" layout-wrap>
                             <label for="chk{{biller.id}}">
-                                <strong> {{biller.name}}</strong> <i class="fa fa-location-arrow"></i>  <i>{{biller.address}}</i>
+                                <strong> {{biller.name}}</strong> <i ng-if="biller.address"><i class="fa fa-location-arrow"></i>{{biller.address}}</i>
                             </label>
                         </md-checkbox>
                         <md-button class="md-fab md-mini" ng-click="openEditDialog(biller, $event);"
